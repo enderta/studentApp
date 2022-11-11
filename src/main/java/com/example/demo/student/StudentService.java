@@ -1,4 +1,3 @@
-/*
 package com.example.demo.student;
 
 import lombok.Data;
@@ -14,8 +13,16 @@ import java.util.List;
 @Service
 public class StudentService {
 public List<Student> getStudents() {
-	return new ArrayList<>();
+	return List.of(
+			new Student(
+					1L,
+					"James Bond",
+					"jb@gmail.com",
+					LocalDate.of(2000, 1, 5),
+					21
+			)
+	);
 }
 
 
-}*/
+}

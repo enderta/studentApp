@@ -1,4 +1,3 @@
-/*
 package com.example.demo.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,4 +21,4 @@ public StudentController(StudentService studentService) {
 public List<Student> getStudents() {
 	return studentService.getStudents();
 }
-}*/
+}
