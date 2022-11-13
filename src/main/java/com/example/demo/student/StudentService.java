@@ -1,6 +1,7 @@
 package com.example.demo.student;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +13,15 @@ import java.util.List;
 @Component
 @Service
 public class StudentService {
+private final StudentRepo studentRepo;
+
+@Autowired
+public StudentService(StudentRepo studentRepo) {
+	this.studentRepo = studentRepo;
+}
+
 public List<Student> getStudents() {
-	return List.of(
-			new Student(
-					1L,
-					"James Bond",
-					"jam@gmail",
-					LocalDate.of(2000, 1, 5),
-					21
-			)
-	);
+	return studentRepo.findAll();
 }
 
 
