@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,4 +26,36 @@ public List<Student> getStudents() {
 }
 
 
+public void addNewStudent(Student student) {
+	studentRepo.findByEmail(student.getEmail())
+			.ifPresentOrElse(
+					(s) -> {
+						throw new IllegalStateException("email taken");
+					},
+					() -> {
+						studentRepo.save(student);
+					}
+			);
+	System.out.println(student);
+}
+
+public void deleteStudent(Long studentId) {
+	boolean exists = studentRepo.existsById(studentId);
+	if (!exists) {
+		throw new IllegalStateException("student with id " + studentId + " does not exist");
+	}
+	studentRepo.deleteById(studentId);
+}
+
+@Transactional
+public void updateStudent(Long studentId, String name, String email) {
+	Student student = studentRepo.findById(studentId)
+			.orElseThrow(() -> new IllegalStateException("student with id " + studentId + " does not exist"));
+	if (name != null && name.length() > 0 && !student.getName().equals(name)) {
+		student.setName(name);
+	}
+	if (email != null && email.length() > 0 && !student.getEmail().equals(email)) {
+		student.setEmail(email);
+	}
+}
 }

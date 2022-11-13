@@ -17,14 +17,14 @@ CommandLineRunner commandLineRunner(StudentRepo studentRepo) {
 
 				"Mariam",
 				"mar@gmail.com",
-				LocalDate.of(2000, Month.JANUARY, 5),
-				21
+				LocalDate.of(2000, Month.JANUARY, 5)
+
 		);
 		Student alex = new Student(
 				"Alex",
 				"al@gamil.com",
-				LocalDate.of(2004, Month.JANUARY, 5),
-				21
+				LocalDate.of(2004, Month.JANUARY, 5)
+
 		);
 		studentRepo.saveAll(
 				List.of(mariam, alex)
