@@ -17,7 +17,7 @@ public List<Student> getStudents() {
 			new Student(
 					1L,
 					"James Bond",
-					"jb@gmail.com",
+					"jam@gmail",
 					LocalDate.of(2000, 1, 5),
 					21
 			)
