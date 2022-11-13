@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,4 +57,23 @@ public void updateStudent(Long studentId, String name, String email) {
 		student.setEmail(email);
 	}
 }
+
+public Student getStudent(Long studentId) {
+	return studentRepo.findById(studentId)
+			.orElseThrow(() -> new IllegalStateException("student with id " + studentId + " does not exist"));
+}
+
+public List<Student> getStudentsByCourseId(Long courseId) {
+	List<Student> students = new ArrayList<>();
+	studentRepo.findAll().forEach(students::add);
+	students.removeIf(student -> !student.getCourses().contains(courseId));
+	return students;
+}
+
+public void registerStudentForCourse(Long courseId, Long studentId) {
+	Student student = studentRepo.findById(studentId)
+			.orElseThrow(() -> new IllegalStateException("student with id " + studentId + " does not exist"));
+	student.getCourse().add(courseId);
+}
+
 }

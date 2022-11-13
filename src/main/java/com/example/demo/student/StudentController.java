@@ -20,6 +20,11 @@ public List<Student> getStudents() {
 	return studentService.getStudents();
 }
 
+@GetMapping(path = "{studentId}")
+public Student getStudent(@PathVariable("studentId") Long studentId) {
+	return studentService.getStudent(studentId);
+}
+
 @PostMapping()
 public void registerNewStudent(@RequestBody Student student) {
 	studentService.addNewStudent(student);
@@ -29,6 +34,7 @@ public void registerNewStudent(@RequestBody Student student) {
 public void deleteStudent(@PathVariable("studentId") Long studentId) {
 	studentService.deleteStudent(studentId);
 }
+
 @PutMapping(path = "{studentId}")
 public void updateStudent(
 		@PathVariable("studentId") Long studentId,
@@ -36,6 +42,20 @@ public void updateStudent(
 		@RequestParam(required = false) String email
 ) {
 	studentService.updateStudent(studentId, name, email);
+}
+
+@GetMapping(path = "course/{courseId}")
+public List<Student> getStudentsByCourseId(@PathVariable("courseId") Long courseId) {
+	return studentService.getStudentsByCourseId(courseId);
+}
+
+@PostMapping(path = "course/{courseId}")
+public void registerStudentForCourse(
+		@PathVariable("courseId") Long courseId,
+		@RequestParam Long studentId
+) {
+	studentService.registerStudentForCourse(courseId, studentId);
+
 }
 
 }

@@ -1,5 +1,6 @@
 package com.example.demo.student;
 
+import com.example.demo.courses.Course;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 
 @Entity
@@ -28,6 +32,13 @@ private String email;
 private LocalDate dob;
 @Transient
 private Integer age;
+
+@ManyToOne
+@JoinColumn(
+		nullable = false,
+		name = "course_id"
+)
+private Course course;
 
 public Student() {
 }
@@ -86,5 +97,18 @@ public Integer getAge() {
 
 public void setAge(Integer age) {
 	this.age = age;
+}
+
+public void setCourse(Course course) {
+this.course = course;
+}
+
+public Course getCourse() {
+return course;
+}
+
+
+public List<Course> getCourses() {
+	return List.of(course);
 }
 }
