@@ -1,16 +1,14 @@
 package com.example.demo.student;
-
-import com.example.demo.courses.Course;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.demo.department.Department;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
 
 
 @Entity
@@ -30,15 +28,17 @@ private Long id;
 private String name;
 private String email;
 private LocalDate dob;
-@Transient
-private Integer age;
 
-@ManyToOne
+
+
+@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 @JoinColumn(
 		nullable = false,
-		name = "course_id"
+		name = "department_id",
+		referencedColumnName = "id"
 )
-private Course course;
+@JsonIgnoreProperties("students")
+private Department department;
 
 public Student() {
 }
@@ -91,24 +91,13 @@ public void setDob(LocalDate dob) {
 	this.dob = dob;
 }
 
-public Integer getAge() {
-		return Period.between(this.dob, LocalDate.now()).getYears();
+public void setDepartment(Department department) {
+	this.department = department;
 }
 
-public void setAge(Integer age) {
-	this.age = age;
-}
-
-public void setCourse(Course course) {
-this.course = course;
-}
-
-public Course getCourse() {
-return course;
-}
+public Department getDepartment() {
+	return department;}
 
 
-public List<Course> getCourses() {
-	return List.of(course);
-}
+
 }

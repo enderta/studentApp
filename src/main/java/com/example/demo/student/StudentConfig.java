@@ -1,56 +1,50 @@
+/*
 package com.example.demo.student;
-
-import com.example.demo.courses.Course;
-import com.example.demo.courses.CourseRepo;
+import com.example.demo.department.Department;
+import com.example.demo.department.DepartmentRepo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
+
 @Configuration
 public class StudentConfig {
 @Bean
-CommandLineRunner commandLineRunner(StudentRepo studentRepo, CourseRepo courseRepo){
+CommandLineRunner commandLineRunner(StudentRepo studentRepo, DepartmentRepo departmentRepo) {
 	return args -> {
 		Student mariam=new Student(
-		"Mariam",
-		"mar@gmail",
-		LocalDate.of(2000, Month.JANUARY,5)
+				"Mariam",
+				"mar@gmail",
+				LocalDate.of(2000, Month.JANUARY,5)
 		);
 		Student alex=new Student(
-		"Alex",
-		"alex@gmail",
-		LocalDate.of(2004, Month.JANUARY,5)
+				"Alex",
+				"alex@gmail",
+				LocalDate.of(2004, Month.JANUARY,5)
 		);
 
-
-		Course math=new Course(
-		"Math",
-		8,
-		"John"
+		Department cs=new Department(
+				"Computer Science",
+				"Computer Science"
 		);
-		Course physics=new Course(
-		"Physics",
-		9,
-		"Jordan"
-		);
-		courseRepo.saveAll(
-		List.of(math,physics)
+		Department it=new Department(
+				"Information Technology",
+				"Information Technology"
 		);
 
-		mariam.setCourse(math);
-		alex.setCourse(physics);
-		studentRepo.saveAll(
-		List.of(mariam,alex)
-		);
+		departmentRepo.saveAll(List.of(cs,it));
+
+		mariam.setDepartment(cs);
+		alex.setDepartment(it);
+
+		studentRepo.saveAll(List.of(mariam,alex));
+
 
 
 	};
 }
 
-
-
-}
+}*/
